@@ -1,19 +1,10 @@
 # memebox generating
 
-PAGELANG?=zh
+PAGELANG?=en
 
 TITLE?=MemeBox
 DESC?=Joy for Everyone
 FOOTER?=** Footer **
-
-ifeq (${PAGELANG}, en)
-T_MEMEPIC?=Picture memes
-T_MEMETXT?=Text memes
-T_DOWNLOAD?=Download
-T_ANOTHER?=Not prefer to it? Try another one
-T_BACK?=Back to gallery
-T_ZOOMIN?=Zoom in
-endif
 
 ifeq (${PAGELANG}, zh)
 T_MEMEPIC?=图片梗
@@ -23,6 +14,14 @@ T_ANOTHER?=梗图不喜欢？换一张试试看
 T_BACK?=返回画廊
 T_ZOOMIN?=查看大图
 endif
+
+T_MEMEPIC?=Picture memes
+T_MEMETXT?=Text memes
+T_DOWNLOAD?=Download
+T_ANOTHER?=Not prefer to it? Try another one
+T_BACK?=Back to gallery
+T_ZOOMIN?=Zoom in
+
 
 .PHONY: clean icon
 
