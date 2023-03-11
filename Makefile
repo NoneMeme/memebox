@@ -4,6 +4,7 @@ PAGELANG?=en
 
 TITLE?=MemeBox
 DESC?=Joy for Everyone
+TDESC?=> _Text memes description._
 FOOTER?=** Footer **
 
 ifeq (${PAGELANG}, zh)
@@ -23,13 +24,14 @@ T_BACK?=Back to gallery
 T_ZOOMIN?=Zoom in
 
 
-.PHONY: clean icon copyandstub
+.PHONY: clean icon copyandstub fixshperm
 
 all: copyandstub shell/genartlist.sh shell/art2text.sh index.html icon
 
 index.html shell/genartlist.sh shell/art2text.sh: %: src/%.in
 	sed 's%@TITLE@%${TITLE}%g' $^ \
 		| sed 's%@DESC@%${DESC}%g' \
+		| sed 's%@TDESC@%${TDESC}%g' \
 		| sed 's%@FOOTER@%${FOOTER}%g' \
 		| sed 's%@PAGELANG@%${PAGELANG}%g' \
 		| sed 's%@T_MEMEPIC@%${T_MEMEPIC}%g' \
@@ -38,6 +40,9 @@ index.html shell/genartlist.sh shell/art2text.sh: %: src/%.in
 		| sed 's%@T_ANOTHER@%${T_ANOTHER}%g' \
 		| sed 's%@T_BACK@%${T_BACK}%g' \
 		| sed 's%@T_ZOOMIN@%${T_ZOOMIN}%g' > $@
+
+fixshperm: shell/genartlist.sh shell/art2text.sh
+	chmod +x $@
 
 icon:
 	@echo
