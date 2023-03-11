@@ -28,6 +28,12 @@ MemeBox can contain various contents including images and markdown documents.
 
 6. Add your contents to `art/` (for documents) or `meme/` (for pictures).
 
+    > NOTE: MemeBox does **not** include any icon files.
+    >
+    > You should prepare your icons and put them into `static/` folder.
+    >
+    > See the output from make for more information.
+
 7. Commit and push.
 
 ### Custom text
@@ -41,6 +47,7 @@ For this, you can define these temporary environment variables below to override
 |PAGELANG|Page language mark for .html file, also decides the default text, e.g. "zh"|
 |TITLE|The title of your memebox, e.g. "MemeBox"|
 |DESC|A short description for your memebox, e.g. "Joy for Everyone"|
+|TDESC|A description for the text part|
 |FOOTER|Footer on every pages|
 
 Just like this:
