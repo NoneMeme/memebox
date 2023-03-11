@@ -20,7 +20,7 @@ jobs:
           ref: ${{ github.ref }}
       - name: remove previous build
         run: |
-          rm ./text/*.html
+          rm -f ./text/*.html
       - name: generate directory
         run: |
           ./shell/genartlist.sh
