@@ -26,7 +26,7 @@ T_ZOOMIN?=Zoom in
 
 .PHONY: clean icon copyandstub fixshperm
 
-all: copyandstub shell/genartlist.sh shell/art2text.sh index.html icon
+all: copyandstub shell/genartlist.sh shell/art2text.sh index.html icon fixshperm
 
 index.html shell/genartlist.sh shell/art2text.sh: %: src/%.in
 	sed 's%@TITLE@%${TITLE}%g' $^ \
@@ -42,7 +42,7 @@ index.html shell/genartlist.sh shell/art2text.sh: %: src/%.in
 		| sed 's%@T_ZOOMIN@%${T_ZOOMIN}%g' > $@
 
 fixshperm: shell/genartlist.sh shell/art2text.sh
-	chmod +x $@
+	chmod +x $^
 
 icon:
 	@echo
