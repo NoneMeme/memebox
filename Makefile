@@ -23,9 +23,9 @@ T_BACK?=Back to gallery
 T_ZOOMIN?=Zoom in
 
 
-.PHONY: clean icon
+.PHONY: clean icon copyandstub
 
-all: shell static .github index.html icon
+all: copyandstub shell/genartlist.sh shell/art2text.sh index.html icon
 
 index.html shell/genartlist.sh shell/art2text.sh: %: src/%.in
 	sed 's%@TITLE@%${TITLE}%g' $^ \
@@ -46,7 +46,7 @@ icon:
 	@echo "***     - static/favicon.png"
 	@echo "*** Please put your icons to the right place."
 
-shell static .github:
+copyandstub:
 	mkdir -pv shell static/data/images
 	touch static/data/.gitkeep static/data/images/.gitkeep
 	cp -rf src/.github src/static .
