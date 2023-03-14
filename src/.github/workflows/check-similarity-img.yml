@@ -7,6 +7,8 @@ jobs:
   check-similarity-img:
     name: Check Similarity Images
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v2
         with:
