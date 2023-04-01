@@ -57,7 +57,8 @@ icon:
 copyandstub:
 	mkdir -pv shell static/data/images
 	touch static/data/.gitkeep static/data/images/.gitkeep
-	cp -rf src/.github src/static .
+	cp -rf src/.github .
+	cp -rf src/static/style.css static/
 	cp -rf src/shell/computed.sh src/shell/imgcheck.py shell/
 
 clean:
