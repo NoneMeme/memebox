@@ -14,6 +14,7 @@ T_DOWNLOAD?=下载图片
 T_ANOTHER?=梗图不喜欢？换一张试试看
 T_BACK?=返回画廊
 T_ZOOMIN?=查看大图
+T_NIMGS?=目前已有 $${items.length} 张。
 endif
 
 T_MEMEPIC?=Picture memes
@@ -22,13 +23,14 @@ T_DOWNLOAD?=Download
 T_ANOTHER?=Not prefer to it? Try another one
 T_BACK?=Back to gallery
 T_ZOOMIN?=Zoom in
+T_NIMGS?=currently including $${items.length} image(s).
 
 
 .PHONY: clean icon copyandstub fixshperm
 
-all: copyandstub shell/genartlist.sh shell/art2text.sh index.html icon fixshperm
+all: copyandstub shell/genartlist.sh shell/art2text.sh static/scripts/index.js index.html icon fixshperm
 
-index.html shell/genartlist.sh shell/art2text.sh: %: src/%.in
+index.html shell/genartlist.sh shell/art2text.sh static/scripts/index.js: %: src/%.in
 	sed 's%@TITLE@%${TITLE}%g' $^ \
 		| sed 's%@DESC@%${DESC}%g' \
 		| sed 's%@TDESC@%${TDESC}%g' \
@@ -39,7 +41,8 @@ index.html shell/genartlist.sh shell/art2text.sh: %: src/%.in
 		| sed 's%@T_DOWNLOAD@%${T_DOWNLOAD}%g' \
 		| sed 's%@T_ANOTHER@%${T_ANOTHER}%g' \
 		| sed 's%@T_BACK@%${T_BACK}%g' \
-		| sed 's%@T_ZOOMIN@%${T_ZOOMIN}%g' > $@
+		| sed 's%@T_ZOOMIN@%${T_ZOOMIN}%g' \
+		| sed 's%@T_NIMGS@%${T_NIMGS}%g' > $@
 
 fixshperm: shell/genartlist.sh shell/art2text.sh
 	chmod +x $^
