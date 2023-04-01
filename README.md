@@ -64,6 +64,7 @@ If the default text does not satisfy you, don't worry, they are also customizabl
 |T_ANOTHER|A hint for randomly picking a image|
 |T_BACK|A hint for leaving the full view|
 |T_ZOOMIN|A hint for entering the full view|
+|T_NIMGS|Images summary text|
 
 ### License
 
