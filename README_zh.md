@@ -24,7 +24,7 @@ Memebox 可以存放多种内容，如`图片`和`Markdown文档`。
 
     > 注意: 默认的变量 `PAGELANG` 现在是 `en` (英文).
     >
-    > 详情： [Custom text](#custom-text).
+    > 详情： [自定义文字](#自定义文字).
 
 6. 将你的资源放入 `art/` (文档) 或 `meme/` (图片).
 

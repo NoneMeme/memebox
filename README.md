@@ -1,7 +1,8 @@
 <center><h1> MemeBox </h1></center>
 
 <center>Website template for meme collection.</center>
-<a href="https://github.com/NoneMeme/memebox/blob/main/README_zh.md">Simplified Chinese<a>  
+
+[简体中文](https://github.com/NoneMeme/memebox/blob/main/README_zh.md)
 
 * * *
 
