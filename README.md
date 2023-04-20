@@ -1,7 +1,7 @@
 <center><h1> MemeBox </h1></center>
 
 <center>Website template for meme collection.</center>
-
+[Simplified Chinese](localhost)
 * * *
 
 ### Description
