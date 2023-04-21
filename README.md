@@ -2,7 +2,7 @@
 
 <center>Website template for meme collection.</center>
 
-[简体中文](https://github.com/NoneMeme/memebox/blob/main/README_zh.md)
+[简体中文](./README_zh.md)
 
 * * *
 
