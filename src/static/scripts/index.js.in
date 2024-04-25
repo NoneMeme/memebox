@@ -54,6 +54,9 @@ function get(url) {
 
 async function loadgallery(remainItemCount) {
     if (remainItemCount <= 0 || displayedItemCount >= items.length) {
+        if (displayedItemCount >= items.length) {
+            console.log("已加载全部图片。");
+        }
         galleryIO.observe(document.getElementById('footer'))
         return
     }
@@ -66,19 +69,21 @@ async function loadgallery(remainItemCount) {
         document.getElementById('col3'),
     ].sort((a, b) => a.offsetHeight - b.offsetHeight)[0]
 
+    let match = items[displayedItemCount].match(
+        /^meme\/((.+)\.(?:jpg|png|jfif|webp|gif|jpeg|bmp))$/
+    );
+    if (match === null) {
+        displayedItemCount += 1;
+        loadgallery(remainItemCount - 1);
+        return;
+    }
+    let filename = match[1];
+    let id = match[2];
     const node = createEleByTemp('gallery-item', {
-        id: `#${
-            items[displayedItemCount].match(
-                /meme\/(.+)\.(jpg|png|jfif|webp|gif|jpeg|bmp)/
-            )[1]
-        }`,
-        src: `./${items[displayedItemCount]}`,
+        id: `#${id}`,
+        src: "./meme/" + encodeURIComponent(filename),
         alt: items[displayedItemCount],
-        title: `# ${
-            items[displayedItemCount].match(
-                /meme\/(.+)\.(jpg|png|jfif|webp|gif|jpeg|bmp)/
-            )[1]
-        }`,
+        title: `# ${id}`,
     })
 
     // 加载好以后再执行下一个图片的加载以保证顺序没问题
@@ -108,9 +113,10 @@ function view() {
         }
     }
 
-    view.querySelector('img').src = `./${name}`
+    let imgSource = "./" + encodeURIComponent(name);
+    view.querySelector('img').src = imgSource;
     view.querySelector('img').alt = name
-    view.querySelector('a').href = `./${name}`
+    view.querySelector('a').href = imgSource;
     window.scrollTo({
         top: view.offsetTop,
         behavior: 'smooth',
