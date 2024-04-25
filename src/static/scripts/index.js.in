@@ -3,6 +3,12 @@ import config from './config.js'
 // const development =
 //     location.host.search(/.+\.github\.io/) === -1 &&
 //     location.host.search(/nonememe\.icu/) === -1
+const memeRegex = /^meme\/((.+)\.(?:jpg|png|jfif|webp|gif|jpeg|bmp))$/i;
+// positive lookbehind (?<=) is not supported by all browsers.
+// global flag (g) will not capture groups
+// [0] is full path (meme/id.jpg)
+// [1] is file name (id.jpg)
+// [2] is id (id)
 const development = false
 const domParser = new DOMParser()
 /** @type {string[]} */
@@ -20,8 +26,8 @@ const galleryIO = new IntersectionObserver((entries) => {
  * @param {number} max
  * @returns {number}
  */
-function random(max, min) {
-    return Math.round(Math.random() * (max - min)) + min
+function random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
 /**
@@ -69,9 +75,7 @@ async function loadgallery(remainItemCount) {
         document.getElementById('col3'),
     ].sort((a, b) => a.offsetHeight - b.offsetHeight)[0]
 
-    let match = items[displayedItemCount].match(
-        /^meme\/((.+)\.(?:jpg|png|jfif|webp|gif|jpeg|bmp))$/
-    );
+    let match = items[displayedItemCount].match(memeRegex);
     if (match === null) {
         displayedItemCount += 1;
         loadgallery(remainItemCount - 1);
@@ -105,9 +109,7 @@ function view() {
     )
     view.querySelector('h2').innerHTML = `# ${name}`
     for (const i of items) {
-        if (
-            i.search(new RegExp(`meme/${name}\.(jpg|png|jfif|webp|gif|jpeg|bmp)`)) != -1
-        ) {
+        if (i.match(memeRegex)[2] === name) {
             name = i
             break
         }
@@ -128,14 +130,10 @@ async function initgallery() {
         'description'
     ).innerHTML = `@DESC@, @T_NIMGS@`
     document.getElementById('refresh-btn').onclick = () => {
-        location.hash = `#${
-            items[random(items.length - 1, 0)].match(
-                /meme\/(.+)\.(jpg|png|jfif|webp|gif|jpeg|bmp)/
-            )[1]
-        }`
+        location.hash = `#${items[random(0, items.length - 1)].match(memeRegex)[2]}`
     }
     for (let i = 0; i < items.length - 1; i++) {
-        const j = random(items.length - 1, i)
+        const j = random(i, items.length - 1)
         const temp = items[i]
         items[i] = items[j]
         items[j] = temp
@@ -145,7 +143,7 @@ async function initgallery() {
     view()
 }
 
-;(async () => {
+; (async () => {
     /**
      * 判断使用何种 API , 获取图片列表
      */
@@ -156,12 +154,7 @@ async function initgallery() {
             .parseFromString((await get('../meme/')).response, 'text/html')
             .querySelectorAll('#files a.icon-image')) {
             items.push(
-                'meme/' +
-                    decodeURIComponent(
-                        i.href.match(
-                            /(?<=meme\/).+\.(jpg|png|jfif|webp|gif|jpeg|bmp)/
-                        )[0]
-                    )
+                'meme/' + decodeURIComponent(i.href.match(memeRegex)[1])
             )
         }
     } else {
