@@ -31,17 +31,23 @@ function random(min, max) {
 }
 
 /**
- * @param {string} id
- * @param {Record<string, any>} obj
+ * @param {{
+    id: string;
+    src: string;
+    alt: string;
+    title: string;
+}} obj
  * @returns {Element}
  */
-function createEleByTemp(id, obj) {
-    const temp = document.createElement('div')
-    temp.innerHTML = Object.entries(obj).reduce(
-        (old, [key, val]) => old.replaceAll(`\${${key}}`, val),
-        document.getElementById(id).innerHTML
-    )
-    return temp.children[0]
+function createMemeElement(obj) {
+    const id = 'gallery-item';
+    let temp = document.createElement('div');
+    temp.innerHTML = document.getElementById(id).innerHTML;
+    temp.querySelector("a").href = obj.id;
+    temp.querySelector("img").src = obj.src;
+    temp.querySelector("img").alt = obj.alt;
+    temp.querySelector("span").textContent = obj.title;
+    return temp.children[0];
 }
 
 /**
@@ -83,7 +89,7 @@ async function loadgallery(remainItemCount) {
     }
     let filename = match[1];
     let id = match[2];
-    const node = createEleByTemp('gallery-item', {
+    const node = createMemeElement({
         id: `#${id}`,
         src: "./meme/" + encodeURIComponent(filename),
         alt: items[displayedItemCount],
