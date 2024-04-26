@@ -115,15 +115,16 @@ function view() {
     )
     view.querySelector('h2').innerHTML = `# ${name}`
     for (const i of items) {
-        if (i.match(memeRegex)[2] === name) {
-            name = i
-            break
+        let match = i.match(memeRegex);
+        if (match[2] === name) {
+            name = match[1];
+            break;
         }
     }
 
-    let imgSource = "./" + encodeURIComponent(name);
+    let imgSource = "./meme/" + encodeURIComponent(name);
     view.querySelector('img').src = imgSource;
-    view.querySelector('img').alt = name
+    view.querySelector('img').alt = name;
     view.querySelector('a').href = imgSource;
     window.scrollTo({
         top: view.offsetTop,
