@@ -90,7 +90,7 @@ async function loadgallery(remainItemCount) {
     let filename = match[1];
     let id = match[2];
     const node = createMemeElement({
-        id: `#${id}`,
+        id: `#${encodeURIComponent(id)}`,
         src: "./meme/" + encodeURIComponent(filename),
         alt: items[displayedItemCount],
         title: `# ${id}`,
